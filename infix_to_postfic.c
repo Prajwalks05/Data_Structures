@@ -48,7 +48,7 @@ void infix_postfix(const char *exp, char *stack, char *post)
     }
     post[post_top] = '\0'; // Null terminate the postfix expression
 }
-int main(void)
+int main()
 {
     char stack[20];
     char post[20];
