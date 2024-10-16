@@ -1,32 +1,25 @@
 // Leet code problem #20;
-#include <string.h>
-#include <stdbool.h>
-
 bool isValid(char* s) {
-    char opn_stk[10];
-    int top = 0;
-
-    for (int i = 0; i < strlen(s); i++) {
+    int n = strlen(s);
+    char stack[n];
+    int top = -1;
+    int i = 0;
+    while (i < n)
+    {
         char c = s[i];
-
-        if (c == '(' || c == '{' || c == '[') {
-            opn_stk[top++] = c; 
-        } 
-        else {
-            if (top == 0) {
-                return false; 
-            }
-            char last = opn_stk[top - 1]; 
-            if ((c == ')' && last == '(') || 
-                (c == '}' && last == '{') || 
-                (c == ']' && last == '[')) {
-                top--;
-            } else {
+        if (c == '(' || c == '{' || c == '[')
+            stack[++top] = c;
+        else
+        {
+            if (top == -1)
                 return false;
-            }
+            char topChar = stack[top--];
+            if ((c == ')' && topChar != '(') || 
+                (c == '}' && topChar != '{') ||
+                (c == ']' && topChar != '['))
+                return false;
         }
+        i++;
     }
-
-    return top == 0; // If stack is empty, all brackets matched
+    return top == -1;
 }
-
