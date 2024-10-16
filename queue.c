@@ -1,62 +1,86 @@
-#include<stdio.h>
+#include <stdio.h>
 #define max 10
-void enqueue(int *front,int *rear,int queue[],int val)
+
+void enqueue(int *front, int *rear, int queue[], int val)
 {
-    if(*rear==(max-1))
+    if (*rear == (max - 1))
     {
-        printf("Queue is full");
+        printf("Queue is full\n");
         return;
     }
-    else if(*front==-1 || *rear==-1)
+    else if (*front == -1 || *rear == -1)
     {
-        *front=*rear=0;
-    }
-    (*rear)++;
-    queue[*rear]=val;
-}
-void dequeue(int *front,int *rear,int queue[])
-{
-    if(*front==-1 || *front>*rear)
-    {
-        printf("Queue is empty");
-        return -1;
+        *front = *rear = 0;
     }
     else
     {
-       int val=queue[*front];
-    (*front)++;
+        (*rear)++; // Increment rear properly
     }
+
+    queue[*rear] = val;
+    printf("%d\n", queue[*rear]);
+
+    // This check is not necessary after enqueue
 }
-void display(int *front,int *rear,int queue[])
+
+void dequeue(int *front, int *rear, int queue[])
 {
-   if(*front==-1|| *front>*rear)
+    if ((*front) == -1 || *front > *rear)
     {
-        printf("Queue is empty");
-        return -1;
+        printf("Queue is empty\n");
     }
     else
     {
-    printf("%d",front);
-    printf("%d",rear);
-    for(int i=front;i<=rear;i++)
-    {
-        printf("%d\n",queue[i]);
-    }
+        int val = queue[*front];
+        printf("%d\n", val);
+        (*front)++; // Increment front properly
+
+        // Reset if the queue is now empty
+        if (*front > *rear)
+        {
+            *front = *rear = -1;
+        }
     }
 }
-void main()
+
+int display(int front, int rear, int queue[])
 {
+    if (front == -1 || front > rear)
+    {
+        printf("Queue is empty\n");
+        return 0;
+    }
+    else
+    {
+        printf("Queue elements:\n");
+        for (int i = front; i <= rear; i++)
+        {
+            printf("%d\n", queue[i]);
+        }
+    }
+    return 0; // Optional return
+}
+
+int main(void)
+{
+    int front = -1;
+    int rear = -1;
     int queue[max];
-    int front=queue[-1];
-    int rear=queue[-1];
-printf("enqueue:\n");
-    enqueue(&front,&rear,queue,10);
-    enqueue(&front,&rear,queue,20);
-     enqueue(&front,&rear,queue,30);
-    enqueue(&front,&rear,queue,40);
-    printf("display\n");
-    display(front,rear,queue);
-    printf("dequeue\n");
-    dequeue(front,rear,queue);
-    display(front,rear,queue);
+
+    printf("Enqueueing:\n");
+    enqueue(&front, &rear, queue, 10);
+    enqueue(&front, &rear, queue, 20);
+    enqueue(&front, &rear, queue, 30);
+    enqueue(&front, &rear, queue, 40);
+    enqueue(&front, &rear, queue, 50);
+
+    printf("Dequeueing:\n");
+    dequeue(&front, &rear, queue);
+    dequeue(&front, &rear, queue);
+    dequeue(&front, &rear, queue);
+    dequeue(&front, &rear, queue);
+
+    display(front, rear, queue);
+
+    return 0;
 }
