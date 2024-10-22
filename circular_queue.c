@@ -21,7 +21,7 @@ void enqueue(int *front, int *rear, int queue[], int val)
         (*rear)++;
     }
     queue[*rear] = val;
-    printf("Enqueued: %d\n", queue[*rear]);
+    printf("%d\n", queue[*rear]);
 }
 
 void dequeue(int *front, int *rear, int queue[])
@@ -44,7 +44,7 @@ void dequeue(int *front, int *rear, int queue[])
     {
         (*front)++;
     }
-    printf("Dequeued: %d\n", val);
+    printf("%d\n", val);
 }
 void display(int *front, int *rear, int queue[])
 {
@@ -60,6 +60,7 @@ void display(int *front, int *rear, int queue[])
             break;
     }
 }
+
 int main(void)
 {
     int front = -1;
