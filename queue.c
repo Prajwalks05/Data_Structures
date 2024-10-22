@@ -76,10 +76,6 @@ int main(void)
 
     printf("Dequeueing:\n");
     dequeue(&front, &rear, queue);
-    dequeue(&front, &rear, queue);
-    dequeue(&front, &rear, queue);
-    dequeue(&front, &rear, queue);
-
     display(front, rear, queue);
 
     return 0;
