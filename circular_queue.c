@@ -6,7 +6,7 @@ void enqueue(int *front, int *rear, int queue[], int val)
     if ((*rear + 1) % max == *front)
     {
         printf("Queue is full\n");
-        return; // Added return to exit the function
+        return;
     }
     if (*front == -1 && *rear == -1)
     {
