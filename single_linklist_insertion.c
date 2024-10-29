@@ -33,13 +33,13 @@ void insertAtend(node **head, int val)
     temp->next = newnode;
 }
 
-void insertAfter(node **head, int prev, int val)
+void insertAtPos(node **head, int position, int val)
 {
     node *newnode = (node *)malloc(sizeof(node));
     newnode->data = val;
 
     node *temp = *head;
-    while (temp != NULL && temp->data != prev)
+    for (int i = 0; temp != NULL && i < position - 1; i++)
     {
         temp = temp->next;
     }
@@ -53,7 +53,6 @@ void insertAfter(node **head, int prev, int val)
 
 void display(node **head)
 {
-    printf("\nDisplaying...\n");
     node *temp = *head;
     while (temp)
     {
@@ -66,18 +65,18 @@ void display(node **head)
 int main(void)
 {
     node *head = NULL;
-    printf("Insert at begin");
+    printf("Insert at begin\n");
     insertAtbeggining(&head, 10);
     insertAtbeggining(&head, 20);
     insertAtbeggining(&head, 30);
     insertAtbeggining(&head, 40);
     display(&head);
-    printf("\nInsert at end");
+    printf("\nInsert at end\n");
     insertAtend(&head, 50);
     insertAtend(&head, 60);
     display(&head);
-    printf("\nInsert after");
-    insertAfter(&head, 20, 25);
+    printf("\nInsert after\n");
+    insertAtPos(&head, 3, 25);
     display(&head);
     return 0;
 }
