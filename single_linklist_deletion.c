@@ -14,43 +14,6 @@ void insertAtbeggining(node **head, int val)
     newnode->next = *head;
     *head = newnode;
 }
-
-void insertAtend(node **head, int val)
-{
-    node *newnode = (node *)malloc(sizeof(node));
-    newnode->data = val;
-    newnode->next = NULL;
-    if (*head == NULL)
-    {
-        *head = newnode;
-        return;
-    }
-    node *temp = *head;
-    while (temp->next)
-    {
-        temp = temp->next;
-    }
-    temp->next = newnode;
-}
-
-void insertAtPos(node **head, int position, int val)
-{
-    node *newnode = (node *)malloc(sizeof(node));
-    newnode->data = val;
-
-    node *temp = *head;
-    for (int i = 0; temp != NULL && i < position - 1; i++)
-    {
-        temp = temp->next;
-    }
-
-    if (temp != NULL)
-    {
-        newnode->next = temp->next;
-        temp->next = newnode;
-    }
-}
-
 void display(node **head)
 {
     node *temp = *head;
@@ -108,22 +71,16 @@ int main(void)
     insertAtbeggining(&head, 20);
     insertAtbeggining(&head, 30);
     insertAtbeggining(&head, 40);
-    display(&head);
-    printf("\nInsert at end");
-    insertAtend(&head, 50);
-    insertAtend(&head, 60);
-    display(&head);
-    printf("\nInsert at position");
-    insertAtPos(&head, 3, 25);
+    insertAtbeggining(&head, 50);
     display(&head);
     printf("\nDelete at begin");
     deleteAtFront(&head);
     display(&head);
-    printf("\nDelete at end");
+    printf("\nDelete at end\n");
     deleteAtEnd(&head);
     display(&head);
-    printf("\nDelete at specific position");
-    deleteAtPos(&head, 4);
+    printf("\nDelete at specific position\n");
+    deleteAtPos(&head, 1);
     display(&head);
     return 0;
 }
