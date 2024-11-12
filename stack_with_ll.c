@@ -1,55 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node {
+typedef struct node
+{
     int data;
     struct node *next;
-};
+} node;
 
-struct node *top = NULL;
+node *top = NULL;
 
-void push(int val) {
-    // Create new node
-    struct node *newNode = malloc(sizeof(struct node));
-    if (newNode == NULL) {
+void push(int val)
+{
+    node *newNode = malloc(sizeof(node));
+    if (newNode == NULL)
+    {
         printf("Memory allocation failed\n");
         return;
     }
     newNode->data = val;
-    // Make the new node point to the top node
     newNode->next = top;
-    // Update the top of the stack
     top = newNode;
 }
 
-void pop() {
-    struct node *temp;
-    if (top == NULL) {
-        printf("Stack is Empty\n");
-    } else {
-        printf("Popped element = %d\n", top->data);
+void pop()
+{
+    node *temp;
+
+    if (top == NULL)
+    {
+        printf("Stack is Empty. Unable to perform pop\n");
+    }
+    else
+    {
         temp = top;
         top = top->next;
+        printf("Popped element:%d\n", temp->data);
+
         free(temp);
     }
 }
 
-void display() {
-    struct node *temp = top;
-    while (temp) {
+void display_stack()
+{
+    node *temp = top;
+    if (temp == NULL)
+    {
+        printf("Stack is empty.\n");
+        return;
+    }
+    while (temp)
+    {
         printf("%d -> ", temp->data);
         temp = temp->next;
     }
     printf("NULL\n");
 }
 
-int main() {
+int main()
+{
     push(10);
     push(20);
     push(30);
     push(40);
+    push(50);
+
+    printf("Stack: ");
     display();
+
+    printf("Popping:\n");
     pop();
+    pop();
+
     display();
+
     return 0;
 }
