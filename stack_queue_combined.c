@@ -1,94 +1,155 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
+typedef struct node {
     int data;
-    struct Node* next;
+    struct node *next;
 } node;
 
-void push(node* *top, int val) {
-    node* newnode = malloc(sizeof(node));
-    if (newnode == NULL) {
+// Stack operation here
+node *top = NULL;
+
+void push(int val)
+{
+    node *newNode = malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
         return;
     }
-    newnode->data = val;
-    newnode->next = *top;
-    *top = newnode;
+    newNode->data = val;
+    newNode->next = top;
+    top = newNode;
 }
 
-void pop(node* *top) {
-    if (*top == NULL) {
-        printf("Stack is empty, nothing to pop (underflow).\n");
+void pop()
+{
+    node *temp;
+
+    if (top == NULL)
+    {
+        printf("Stack is Empty. Unable to perform pop\n");
+    }
+    else
+    {
+        temp = top;
+        top = top->next;
+        printf("Popped element: %d\n", temp->data);
+
+        free(temp);
+    }
+}
+
+void display_stack()
+{
+    node *temp = top;
+    if (temp == NULL)
+    {
+        printf("Stack is empty.\n");
         return;
     }
-    node* temp = *top;
-    *top = temp->next;
-    printf("Popped value: %d\n", temp->data);
-    free(temp);
-}
-
-void enqueue(node* *front, node* *rear, int val) {
-    node* newnode = malloc(sizeof(node));
-    if (newnode == NULL) {
-        return;
-    }
-    newnode->data = val;
-    newnode->next = NULL;
-    if (*front == NULL) {
-        *front = *rear = newnode;
-    } else {
-        (*rear)->next = newnode;
-        *rear = newnode;
-    }
-}
-
-void dequeue(node* *front, node* *rear) {
-    if (*front == NULL) {
-        printf("Queue is empty, nothing to dequeue (underflow).\n");
-        return;
-    }
-    node* temp = *front;
-    *front = temp->next;
-    printf("Dequeued value: %d\n", temp->data);
-    if (*front == NULL) {
-        *rear = NULL;
-    }
-    free(temp);
-}
-
-void display(node* front) {
-    node* temp = front;
-    while (temp) {
+    while (temp)
+    {
         printf("%d -> ", temp->data);
         temp = temp->next;
     }
     printf("NULL\n");
 }
 
-int main(void) {
-    printf("\n\nStack Operation\n\n");
-    node* top = NULL;
-    push(&top, 10);
-    push(&top, 20);
-    push(&top, 30);
-    push(&top, 40);
-    display(top);
-    pop(&top);
-    display(top);
+// Queue operation here
+node *front = NULL, *rear = NULL;
 
-    printf("\n\nQueue Operation\n\n");
-    node* front = NULL;
-    node* rear = NULL;
+void enqueue(int val)
+{
+    node *newNode = malloc(sizeof(node));
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    newNode->data = val;
+    newNode->next = NULL;
 
-    enqueue(&front, &rear, 10);
-    enqueue(&front, &rear, 20);
-    enqueue(&front, &rear, 30);
-    enqueue(&front, &rear, 40);
-    display(front);
+    if (front == NULL && rear == NULL)
+    {
+        front = rear = newNode;
+    }
+    else
+    {
+        rear->next = newNode;
+        rear = newNode;
+    }
+}
 
-    dequeue(&front, &rear);
-    dequeue(&front, &rear);
-    display(front);
+void dequeue()
+{
+    node *temp;
+
+    if (front == NULL)
+    {
+        printf("Queue is Empty. Unable to perform dequeue\n");
+    }
+    else
+    {
+        temp = front;
+        front = front->next;
+
+        if (front == NULL)
+        {
+            rear = NULL;
+        }
+        printf("Dequeued Element: %d\n", temp->data);
+        free(temp);
+    }
+}
+
+void display_queue()
+{
+    node *temp = front;
+    if (temp == NULL)
+    {
+        printf("Queue is empty.\n");
+        return;
+    }
+    while (temp)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main()
+{
+    // Stack operations
+    push(10);
+    push(20);
+    push(30);
+    push(40);
+    push(50);
+
+    printf("Stack: ");
+    display_stack();
+
+    printf("Popping:\n");
+    pop();
+    pop();
+
+    display_stack();
+
+    // Queue operations
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    enqueue(40);
+    enqueue(50);
+    printf("Queue: ");
+    display_queue();
+
+    printf("Dequeue\n");
+    dequeue();
+    dequeue();
+    display_queue();
 
     return 0;
 }
