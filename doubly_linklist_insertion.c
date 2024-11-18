@@ -71,7 +71,6 @@ void insertatPos(node **head, int position, int val)
         free(newnode);
         return;
     }
-
     newnode->next = temp->next;
     if (temp->next != NULL)
     {
@@ -80,10 +79,9 @@ void insertatPos(node **head, int position, int val)
     temp->next = newnode;
     newnode->prev = temp;
 }
-
-void display(node *head)
+void display(node **head)
 {
-    node *temp = head;
+    node *temp = *head;
     while (temp != NULL)
     {
         printf("%d->", temp->data);
@@ -101,6 +99,6 @@ int main()
     insertend(&head, 40);
     insertend(&head, 50);
     insertatPos(&head, 3, 25);
-    display(head);
+    display(&head);
     return 0;
 }
