@@ -1,113 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
+typedef struct Node
 {
     int data;
     struct Node *left, *right;
-};
+} node;
 
-struct Node *newnode(int value)
+node *newnode(int val)
 {
-    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
-    temp->data = value;
+    node *temp = (node *)malloc(sizeof(struct Node));
+    temp->data = val;
     temp->left = temp->right = NULL;
     return temp;
 }
 
-struct Node *insertNode(struct Node *node, int value)
+node *insertnode(node *node, int val)
 {
     if (node == NULL)
     {
-        return newnode(value);
+        return newnode(val);
     }
-    if (value < node->data)
+    else if (val < node->data)
     {
-        node->left = insertNode(node->left, value);
-    }
-    else if (value > node->data)
-    {
-        node->right = insertNode(node->right, value);
-    }
-    return node;
-}
-
-void postOrder(struct Node *root)
-{
-    if (root != NULL)
-    {
-        postOrder(root->left);
-        postOrder(root->right);
-        printf(" %d ", root->data);
-    }
-}
-
-void inOrder(struct Node *root)
-{
-    if (root != NULL)
-    {
-        inOrder(root->left);
-        printf(" %d ", root->data);
-        inOrder(root->right);
-    }
-}
-
-void preOrder(struct Node *root)
-{
-    if (root != NULL)
-    {
-        printf(" %d ", root->data);
-        preOrder(root->left);
-        preOrder(root->right);
-    }
-}
-
-struct Node *searchNode(struct Node *root, int value)
-{
-    if (root == NULL || root->data == value)
-    {
-        return root;
-    }
-    if (value > root->data)
-    {
-        return searchNode(root->right, value);
-    }
-    return searchNode(root->left, value);
-}
-
-int main()
-{
-    struct Node *root = NULL;
-    root = insertNode(root, 50);
-    insertNode(root, 30);
-    insertNode(root, 20);
-    insertNode(root, 40);
-    insertNode(root, 70);
-    insertNode(root, 60);
-    insertNode(root, 80);
-
-    printf("Postorder :\n");
-    postOrder(root);
-    printf("\n");
-
-    printf("Preorder :\n");
-    preOrder(root);
-    printf("\n");
-
-    printf("Inorder :\n");
-    inOrder(root);
-    printf("\n");
-
-    int valueToSearch = 40;
-    struct Node *foundNode = searchNode(root, valueToSearch);
-    if (foundNode != NULL)
-    {
-        printf("Node with value %d found in the tree.\n", valueToSearch);
+        node->left = insertnode(node->left, val);
     }
     else
     {
-        printf("Node with value %d not found in the tree.\n", valueToSearch);
+        node->right = insertnode(node->right, val);
     }
+}
+void preorder(node *root)
+{
+    if (root != NULL)
+    {
+        printf(" %d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+void inorder(node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf(" %d ", root->data);
+        inorder(root->right);
+    }
+}
+void postorder(node *root)
+{ 
+    if (root != NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf(" %d ", root->data);
+    }
+}
 
-    return 0;
+void main()
+{
+    node *root = NULL;
+    root = insertnode(root, 100);
+    insertnode(root, 20);
+    insertnode(root, 65);
+    insertnode(root, 40);
+    insertnode(root, 5);
+    insertnode(root, 60);
+    insertnode(root, 95);
+    insertnode(root, 35);
+    insertnode(root, 20);
+    printf("\npreorder Traversal\n");
+    preorder(root);
+    printf("\ninorder Traversal\n");
+    inorder(root);
+    printf("\npostorder Traversal\n");
+    postorder(root);
 }
