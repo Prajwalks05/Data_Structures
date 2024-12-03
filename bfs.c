@@ -34,21 +34,17 @@ int main()
 {
     int nodes, i, j;
 
-    // Ask the user for the number of nodes
     printf("Enter the number of nodes in the graph: ");
     scanf("%d", &nodes);
 
-    // Dynamically allocate memory for the adjacency matrix
-    int **adj = (int **)malloc(nodes * sizeof(int *));
+    int **adj = (int *)malloc(nodes * sizeof(int *));
     for (i = 0; i < nodes; i++)
     {
         adj[i] = (int *)malloc(nodes * sizeof(int));
     }
 
-    // Create visited array
     int *visited = (int *)malloc(nodes * sizeof(int));
 
-    // Enter the adjacency matrix for the graph
     printf("\nEnter the adjacency matrix (size %dx%d):\n", nodes, nodes);
     for (i = 0; i < nodes; i++)
     {
@@ -58,11 +54,9 @@ int main()
         }
     }
 
-    // Perform BFS Traversal starting from node 0
     printf("BFS Traversal: ");
     bfs(adj, visited, nodes, 0);
 
-    // Free dynamically allocated memory
     for (i = 0; i < nodes; i++)
     {
         free(adj[i]);
