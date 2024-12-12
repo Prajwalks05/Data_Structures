@@ -65,13 +65,13 @@ int main()
     push(50);
 
     printf("Stack: ");
-    display();
+    display_stack();
 
     printf("Popping:\n");
     pop();
     pop();
 
-    display();
+    display_stack();
 
     return 0;
 }
